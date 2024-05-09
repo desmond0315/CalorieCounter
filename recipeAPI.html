@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Demo</title>
+</head>
+<body>
+    <h1>API Demo</h1>
+    
+    <!-- Search form -->
+    <form id="searchForm">
+        <label for="query">Search for Recipe:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+    
+    <!-- Results section -->
+    <div id="results"></div>
+    
+    <script>
+        // Function to fetch recipe data from CalorieNinjas API
+        function fetchRecipe(query) {
+            // API endpoint URL
+            var apiUrl = 'https://api.calorieninjas.com/v1/recipe?query=' + encodeURIComponent(query);
+            
+            // API Key
+            var apiKey = 'rpRUKhLZs24UEajq6D8eLA==pz6nVJb8Il6e7bog';
+            
+            // Headers
+            var headers = new Headers();
+            headers.append('X-Api-Key', apiKey);
+            
+            // Request options
+            var requestOptions = {
+                method: 'GET',
+                headers: headers,
+                redirect: 'follow'
+            };
+            
+            // Make a request to the API
+            fetch(apiUrl, requestOptions)
+            .then(response => response.json()) // Parse response as JSON
+            .then(data => {
+                // Handle the data received from the API
+                console.log(data); // You can log the data to see what it contains
+                // Display data in the results div or handle it as needed
+                displayResults(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('Error fetching data:', error);
+            });
+        }
+        
+        // Function to display results in the results div
+        function displayResults(data) {
+            var resultsDiv = document.getElementById('results');
+            // Clear previous results
+            resultsDiv.innerHTML = '';
+            
+            // Display each recipe
+            data.recipes.forEach(recipe => {
+                var recipeDiv = document.createElement('div');
+                recipeDiv.innerHTML = `
+                    <h3>${recipe.name}</h3>
+                    <p>Calories: ${recipe.calories}</p>
+                    <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
+                `;
+                resultsDiv.appendChild(recipeDiv);
+            });
+        }
+        
+        // Event listener for the search form submission
+        document.getElementById('searchForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            
+            // Get the value from the search input field
+            var query = document.getElementById('query').value.trim();
+            
+            // Call fetchRecipe function with the search query
+            fetchRecipe(query);
+        });
+    </script>
+</body>
+</html>

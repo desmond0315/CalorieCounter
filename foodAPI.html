@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food API Example</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+    height: 100vh;
+    width: 100%;
+    background: url("background.jpg") center/cover no-repeat;
+}
+
+
+    header {
+      color: #fff;
+      text-align: center;
+      padding: 1rem 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .error {
+      color: #dc3545;
+      font-style: italic;
+      margin-top: 20px;
+    }
+    .smaller-heading {
+  font-size: 1.5rem; /* You can adjust the value as needed */
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Search Foods</h1>
+    <h2 class="smaller-heading">Search our entire food database</h2>
+  </header>
+  <div class="container">
+    <form id="searchForm" class="form-inline">
+      <div class="input-group mb-3">
+        <input type="text" id="query" name="query" class="form-control" placeholder="Search for a food item">
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+      </div>
+    </form>
+     
+    <div id="result" class="result" style="display: none;">
+      <!-- Result will be displayed here -->
+    </div>
+    <div id="error" class="error" style="display: none;">
+      <!-- Error messages will be displayed here -->
+    </div>
+  </div>
+   
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+  <!-- Bootstrap JS (optional, for some components) -->
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    document.getElementById('searchForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const query = document.getElementById('query').value.trim(); // Get the query from the input field
+
+      if (query === '') {
+        alert('Please enter a search query.'); // Notify the user if the input field is empty
+        return;
+      }
+
+      const encodedQuery = encodeURIComponent(query); // Encode the query string
+
+      const apiKey = 'rpRUKhLZs24UEajq6D8eLA==pz6nVJb8Il6e7bog'; // Replace 'YOUR_API_KEY' with your actual API key
+      const apiUrl = `https://api.calorieninjas.com/v1/nutrition?query=${encodedQuery}`;
+
+      fetch(apiUrl, {
+        headers: {
+          'X-Api-Key': apiKey
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        // Handle the response data
+        displayResult(data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error:', error);
+        document.getElementById('error').style.display = 'block';
+        document.getElementById('error').textContent = 'An error occurred. Please try again later.';
+      });
+    });
+
+    function displayResult(data) {
+  const resultDiv = document.getElementById('result');
+  resultDiv.innerHTML = ''; // Clear previous results
+
+  // Check if data is an array and not empty
+  if (Array.isArray(data.items) && data.items.length > 0) {
+    // Assuming the first item in the array contains the relevant data
+    const foodItem = data.items[0];
+    const foodName = foodItem.name;
+    const calories = foodItem.calories;
+    const protein = foodItem.protein_g;
+    const fat = foodItem.fat_total_g;
+    const carbohydrates = foodItem.carbohydrates_total_g;
+
+    // Construct result HTML with Bootstrap classes for styling
+    const resultHTML = `
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">${foodName}</h2>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Calories: ${calories}</li>
+            <li class="list-group-item">Protein: ${protein}g</li>
+            <li class="list-group-item">Fat: ${fat}g</li>
+            <li class="list-group-item">Carbohydrates: ${carbohydrates}g</li>
+          </ul>
+        </div>
+      </div>
+    `;
+
+    // Display result HTML
+    resultDiv.innerHTML = resultHTML;
+    resultDiv.style.display = 'block'; // Show the result div
+  } else {
+    // Handle case where data is empty or not in the expected format
+    document.getElementById('error').style.display = 'block';
+    document.getElementById('error').textContent = 'No data available for the given query.';
+  }
+}
+
+  </script>
+</body>
+</html>
