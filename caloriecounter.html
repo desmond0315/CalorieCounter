@@ -1,124 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calories Calculator</title>
-    <style>
-        body {
-            height: 100vh;
-            width: 100%;
-            background: url("background.jpg") center/cover no-repeat;
-        }
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        td {
-            padding-bottom: 10px;
-        }
-        
-        .textfield {
-            height: 30px;
-            width: 150px;
-        }
+    <!-- CSS -->
+    <link rel="stylesheet" href="caloriecounterStyle.css">
 
-        .button {
-            background-color: rgb(47, 177, 252);
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-            padding: 10px;
-            border-radius: 3px;
-            border: none;
-        }
-
-        #page {
-            margin: auto;
-            text-align: center;
-            background-color: rgb(206, 206, 206);
-            width: 500px;
-            padding: 10px;
-            border-radius: 1em;
-            border: 1px solid gray;
-        }
-    </style>
-    <script>
-        function calculateCalories(){
-            let caloriesNeeded;
-            let weight = parseFloat(document.getElementById("weight").value);
-            let height = parseInt(document.getElementById("height").value);
-            let age = parseInt(document.getElementById("age").value);
-            let activenessValue = parseInt(document.getElementById("activeness").value);
-            
-            let gender = (document.getElementById("male").checked) ? "Male" : (document.getElementById("female").checked ? "Female" : null);
-
-            if(gender != null){
-                if(gender == "Male"){
-                    caloriesNeeded = 10 * weight + 6.25 * height - 5 * age + 5 + activenessValue;
-                }
-                else if(gender == "Female"){
-                    caloriesNeeded = 10 * weight + 6.25 * height - 5 * age - 161 + activenessValue; 
-                }
-            
-                document.getElementById("caloriesNeeded").value = caloriesNeeded;
-            }
-        }
-    </script>
+    <title>Calorie Calculator using JavaScript</title>
 </head>
+
 <body>
-    <form action="">
-        <div id="page">
-            <table align="center">
-                <!-- row 1 -->
-                <tr>
-                    <td colspan="3" align="center"><h3>Calories Calculator</h3></td>
-                </tr>
-                <!-- row 2 -->
-                <tr>
-                    <td><p>Age: </p></td>
-                    <td><input type="text" id="age" class="textfield"></td>
-                    <td> years</td>
-                </tr>
-                <!-- row 3 -->
-                <tr>
-                    <td><p>Gender: </p></td>
-                    <td>
-                        <input type="radio" name="gender" id="male" value="Male">
-                        <span>Male  </span>
-                        <input type="radio" name="gender" id="female" value="Female">
-                        <span>Female  </span>
-                    </td>
-                    <td></td>
-                </tr>
-                <!-- row 4 -->
-                <tr>
-                    <td><p>Height: </p></td>
-                    <td><input type="text" id="height" class="textfield"></td>
-                    <td></td>
-                </tr>
-                <!-- row 5 -->
-                <tr>
-                    <td><p>Weight: </p></td>
-                    <td><input type="text" id="weight" class="textfield"></td>
-                    <td> Kg</td>
-                </tr>
-                <!-- row 6 -->
-                <tr>
-                    <td><p>Activeness: </p></td>
-                    <td>
-                        <select name="activeness" id="activeness">
-                            <option value="0">Sedentary</option>
-                            <option value="200">Light Active</option>
-                            <option value="500">Moderately Active</option>
-                            <option value="800">Very Active</option>
-                            <option value="1200">Extra Active</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <input class="button" type="button" value="Calculate The Calories" onclick="calculateCalories()">
-            <br/>
-            <h3>Calories Result</h3>
-            <p><span>Calories Needed: </span> <input type="text" id="caloriesNeeded" class="textfield" value=""></p>
+    <!-- Further Code Herre --> 
+    <div id="bmr-calculator" class="wrapper">
+    <div class="calculator">
+        <div class="choose-gender">
+            <div class="segmented-control"><input id="calc-gender-male" type="radio" name="gender" value="male"
+                    checked=""><label for="calc-gender-male">Male</label></div>
+            <div class="segmented-control">
+                <input id="calc-gender-female" type="radio" name="gender" value="female"><label
+                    for="calc-gender-female">Female</label>
+            </div>
         </div>
-    </form>
+        <label for="calc-age" id="calc-age_value">Age: 25</label>
+        <input id="calc-age" type="range" value="25" min="13" max="100">
+        <label for="calc-height" id="calc-height_value">Height: 180cm</label>
+        <input id="calc-height" type="range" value="180" min="80" max="250">
+        <label for="calc-weight" id="calc-weight_value">Weight: 80kg</label>
+        <input id="calc-weight" type="range" value="80" min="40" max="200">
+        <label for="calc-walking" id="calc-walking_value">Walking: 2 hours per week</label>
+        <input id="calc-walking" type="range" value="2" min="0" max="50">
+        <label for="calc-cardio" id="calc-cardio_value">Cardio: 1 hour per week</label>
+        <input id="calc-cardio" type="range" value="1" min="0" max="50">
+    </div>
+    <div class="results">
+        <div id="calc-target-gain">
+            To Gain Weight:<br>
+            <span>2700 calories</span>
+        </div>
+        <div id="calc-target-maintain">
+            To Maintain:<br>
+            <span>2400 calories</span>
+        </div>
+        <div id="calc-target-lose">
+            To Lose Weight:<br>
+            <span>1900 calories</span>
+        </div>
+    </div>
+</div>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+    <script src="caloriecounterJS.js"></script>
 </body>
+
 </html>

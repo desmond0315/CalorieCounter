@@ -1,5 +1,5 @@
 const navbarMenu = document.querySelector(".navbar .links");
-const hamburgerzBtn = document.querySelector(".hamburger-btn");
+const hamburgerBtn = document.querySelector(".hamburger-btn");
 const hideMenuBtn = navbarMenu.querySelector(".close-btn");
 const showPopupBtn = document.querySelector(".login-btn");
 const formPopup = document.querySelector(".form-popup");
@@ -28,4 +28,4 @@ signupLoginLink.forEach(link => {
         e.preventDefault();
         formPopup.classList[link.id === 'signup-link' ? 'add' : 'remove']("show-signup");
     });
-});
+});zz

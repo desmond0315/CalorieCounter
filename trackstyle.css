@@ -1,0 +1,321 @@
+/* style.css */
+
+/* General Styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #fffde0;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, p {
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+header {
+  background: #e9b114;
+  color: #fff;
+  padding: 20px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 2rem;
+}
+
+header button {
+  font-weight: bold;
+  border: 2px solid #fff;
+  border-radius: 10px;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+}
+
+/* Stats Section */
+.stats {
+  padding: 20px 50px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card .card-body {
+  padding: 20px;
+}
+
+.card.bg-dark {
+  background: #fff;
+}
+
+.card.bg-primary {
+  background: #fff;
+}
+
+.card.bg-light {
+  background: #ffffff;
+}
+
+.card p {
+  margin-top: 10px;
+}
+
+.fs-1 {
+  font-size: 2rem;
+}
+
+.fs-4 {
+  font-size: 1.25rem;
+}
+
+/* Progress Bar */
+.progress {
+  height: 30px;
+  margin: 20px 50px;
+  background-color: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar.exceeded {
+  background-color: #dc3545;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #28a745;
+}
+
+@keyframes progressBarAnimation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+/* Filter Section */
+.filter {
+  padding: 20px 50px;
+}
+
+.filter .form-control {
+  height: 50px;
+  border-radius: 5px;
+}
+
+/* Items Section */
+.items {
+  padding: 20px 50px;
+}
+
+.items h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+.items .btn {
+  border-radius: 5px;
+}
+
+.items .card {
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+/* Forms */
+form input {
+  height: 50px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+form button {
+  height: 50px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+/* Modal */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  background: #fffde0;
+  color: #000000;
+}
+
+.modal-header h1 {
+  font-size: 1.5rem;
+}
+
+.modal-body .form-label {
+  font-weight: bold;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  header h1 {
+    margin-bottom: 10px;
+  }
+
+  .stats, .filter, .items {
+    padding: 20px;
+  }
+
+  .progress {
+    margin: 20px;
+  }
+}
+
+@media (min-width: 768px) {
+  .items .row {
+    display: flex;
+  }
+  .items .col-md-6 {
+    flex: 1;
+  }
+  .filter .row {
+    display: flex;
+  }
+  .filter .col-md-6 {
+    flex: 1;
+  }
+}
+
+/* Additional styles for alignment and spacing */
+.header h1 {
+  display: flex;
+  align-items: center;
+}
+
+.header h1 img {
+  margin-right: 10px;
+}
+
+.header button {
+  margin-left: 10px;
+}
+
+.card-body .fs-1 {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.card-body p.fs-4 {
+  font-size: 1.5rem;
+}
+
+.progress {
+  height: 20px;
+}
+
+@media (max-width: 767px) {
+  .progress {
+    margin-bottom: 20px;
+  }
+}
+
+.stats .row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.stats .col-md-6 {
+  flex: 1;
+}
+
+.stats .col-md-6 .card {
+  height: 100%;
+}
+
+.stats .col-md-6 .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stats .col-md-6 .card-body p {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .stats .row {
+    flex-direction: column;
+  }
+}
+
+.card.text-center.bg-dark.text-white > .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.card.text-center.bg-dark.text-white > .card-body #calories-limit,
+.card.text-center.bg-dark.text-white > .card-body p {
+  margin-top: 40px; /* Adjust this value as needed */
+}
+
+.bg-danger {
+  background-color: #D2042D; /* Red color */
+  color: #D2042D; /* Text color */
+}
+
+.items .card-body {
+  background-color: #f9d77569; /* Set the desired background color */
+}
+
+.card-body {
+  background-color: #fff; /* Set the desired background color */
+}
+
+#meal-name {
+  width: 795px; /* Adjust the value as needed */
+}
+
+#workout-name {
+    width: 795px;
+}
+
+#meal-calories {
+    width: 795px;
+}
+
+#workout-calories {
+    width: 795px;
+}
+
+#filter-meals {
+  margin-left:300px;
+}
+
+#filter-workouts {
+  margin-left: 300px; /* This will center the input horizontally */
+}
+
+#meal-date-time {
+    width: 795px; /* Adjust the width as needed */
+}
+
+#workout-date-time {
+    width: 795px;
+}
+
+
+

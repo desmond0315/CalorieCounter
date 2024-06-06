@@ -3,84 +3,169 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Demo</title>
+    <title>Recipe Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100%;
+        }
+        video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            background-size: cover;
+        }
+        h1 {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 99, 71, 0.8);
+            color: white;
+            margin: 0;
+        }
+        #search-container {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        #search-bar {
+            width: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #search-button {
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            background-color: #ff6347;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        #data-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+        .recipe {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            width: calc(33% - 40px);
+            box-sizing: border-box;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .recipe:hover {
+            transform: scale(1.05);
+        }
+        .recipe img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+        .recipe h2 {
+            font-size: 1.2em;
+            margin: 0 0 10px 0;
+        }
+        .recipe p {
+            margin: 10px 0 0 0;
+        }
+        .recipe a {
+            text-decoration: none;
+            color: #ff6347;
+            font-weight: bold;
+        }
+        .recipe a:hover {
+            text-decoration: underline;
+        }
+        .loading {
+            text-align: center;
+            font-size: 1.5em;
+            color: #ff6347;
+        }
+    </style>
 </head>
 <body>
-    <h1>API Demo</h1>
-    
-    <!-- Search form -->
-    <form id="searchForm">
-        <label for="query">Search for Recipe:</label>
-        <input type="text" id="query" name="query" required>
-        <button type="submit">Search</button>
-    </form>
-    
-    <!-- Results section -->
-    <div id="results"></div>
-    
+    <video autoplay muted loop>
+        <source src="recipebackground.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <h1>Recipe Search</h1>
+    <div id="search-container">
+        <input type="text" id="search-bar" placeholder="Enter recipe keyword">
+        <button id="search-button">Search</button>
+    </div>
+    <div id="data-container">
+        <!-- Recipe results will be displayed here -->
+    </div>
+
     <script>
-        // Function to fetch recipe data from CalorieNinjas API
-        function fetchRecipe(query) {
-            // API endpoint URL
-            var apiUrl = 'https://api.calorieninjas.com/v1/recipe?query=' + encodeURIComponent(query);
-            
-            // API Key
-            var apiKey = 'rpRUKhLZs24UEajq6D8eLA==pz6nVJb8Il6e7bog';
-            
-            // Headers
-            var headers = new Headers();
-            headers.append('X-Api-Key', apiKey);
-            
-            // Request options
-            var requestOptions = {
-                method: 'GET',
-                headers: headers,
-                redirect: 'follow'
-            };
-            
-            // Make a request to the API
-            fetch(apiUrl, requestOptions)
-            .then(response => response.json()) // Parse response as JSON
-            .then(data => {
-                // Handle the data received from the API
-                console.log(data); // You can log the data to see what it contains
-                // Display data in the results div or handle it as needed
-                displayResults(data);
-            })
-            .catch(error => {
-                // Handle errors
-                console.error('Error fetching data:', error);
-            });
-        }
-        
-        // Function to display results in the results div
-        function displayResults(data) {
-            var resultsDiv = document.getElementById('results');
-            // Clear previous results
-            resultsDiv.innerHTML = '';
-            
-            // Display each recipe
-            data.recipes.forEach(recipe => {
-                var recipeDiv = document.createElement('div');
-                recipeDiv.innerHTML = `
-                    <h3>${recipe.name}</h3>
-                    <p>Calories: ${recipe.calories}</p>
-                    <p>Ingredients: ${recipe.ingredients.join(', ')}</p>
-                `;
-                resultsDiv.appendChild(recipeDiv);
-            });
-        }
-        
-        // Event listener for the search form submission
-        document.getElementById('searchForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent the default form submission
-            
-            // Get the value from the search input field
-            var query = document.getElementById('query').value.trim();
-            
-            // Call fetchRecipe function with the search query
-            fetchRecipe(query);
+        document.getElementById('search-button').addEventListener('click', function() {
+            const keyword = document.getElementById('search-bar').value.trim();
+            if (keyword === '') {
+                alert('Please enter a recipe keyword to search.');
+                return;
+            }
+
+            const appId = 'cae66b84'; // Replace with your actual Application ID for Recipe API
+            const appKey = 'ae5fbefe5e3be79c322751fe1563d844'; // Replace with your actual Application Key for Recipe API
+            const apiUrl = `https://api.edamam.com/search?q=${keyword}&app_id=${appId}&app_key=${appKey}`;
+
+            const dataContainer = document.getElementById('data-container');
+            dataContainer.innerHTML = '<p class="loading">Loading...</p>';
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(errorInfo => Promise.reject(errorInfo));
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    displayRecipes(data.hits);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    alert(`There was a problem with the fetch operation: ${error.message || JSON.stringify(error)}`);
+                    dataContainer.innerHTML = '';
+                });
         });
+
+        function displayRecipes(recipes) {
+            const dataContainer = document.getElementById('data-container');
+            dataContainer.innerHTML = '';
+
+            if (recipes.length === 0) {
+                dataContainer.innerHTML = '<p class="loading">No recipes found. Try another keyword.</p>';
+                return;
+            }
+
+            recipes.forEach(hit => {
+                const recipe = hit.recipe;
+                const recipeElement = document.createElement('div');
+                recipeElement.classList.add('recipe');
+                recipeElement.innerHTML = `
+                    <h2>${recipe.label}</h2>
+                    <img src="${recipe.image}" alt="${recipe.label}">
+                    <p><a href="${recipe.url}" target="_blank">View Recipe</a></p>
+                `;
+                dataContainer.appendChild(recipeElement);
+            });
+        }
     </script>
 </body>
 </html>
