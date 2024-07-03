@@ -1,0 +1,43 @@
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+Limit value not provided
+#0 {main}
+Unknown column 'Limit_Date' in 'field list'
+#0 C:\xampp\htdocs\CalorieCounterApp\auth\public\save_limit.php(42): mysqli->prepare('INSERT INTO dai...')
+#1 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+User not logged in
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}
+User not logged in
+#0 {main}
+Limit value not provided
+#0 {main}
+Limit value not provided
+#0 {main}

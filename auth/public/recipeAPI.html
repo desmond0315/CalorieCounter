@@ -5,13 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe Search</title>
     <style>
+        :root {
+            --primary-color: #435fda;
+            --secondary-color: #d8415c;
+            --body-font-size: 16px;
+            --line-height: 1.5;
+            --content-width: 480px;
+            --background-color: #fff;
+            --background-color-secondary: #f8f8f9;
+            --text-color: #060914;
+            --text-color-muted: #71737f;
+            --line-color: #ededef;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #657bdb;
+                --primary-color-translucent: rgba(85, 106, 195, 0.3);
+                --secondary-color: #d93d59;
+                --background-color: #060913;
+                --background-color-secondary: #0f1424;
+                --text-color: #e4e4e7;
+                --text-color-muted: #838690;
+                --line-color: #303341;
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
             height: 100vh;
             width: 100%;
+            background-color: var(--background-color);
+            color: var(--text-color);
         }
+
         video {
             position: fixed;
             top: 50%;
@@ -24,6 +53,7 @@
             transform: translate(-50%, -50%);
             background-size: cover;
         }
+
         h1 {
             text-align: center;
             padding: 20px;
@@ -31,71 +61,101 @@
             color: white;
             margin: 0;
         }
+
         #search-container {
             display: flex;
             justify-content: center;
             padding: 20px;
         }
+
         #search-bar {
             width: 300px;
             padding: 10px;
             font-size: 16px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--line-color);
             border-radius: 5px;
         }
+
         #search-button {
             padding: 10px;
             font-size: 16px;
             border: none;
-            background-color: #ff6347;
+            background-color: var(--secondary-color);
             color: white;
             cursor: pointer;
             margin-left: 10px;
             border-radius: 5px;
         }
+
         #data-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             padding: 20px;
         }
+
         .recipe {
-            border: 1px solid #ddd;
+            border: 1px solid var(--line-color);
             border-radius: 8px;
             background-color: white;
             padding: 20px;
             margin: 10px;
             width: calc(33% - 40px);
             box-sizing: border-box;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: transform 0.2s;
         }
+
         .recipe:hover {
             transform: scale(1.05);
         }
+
         .recipe img {
             max-width: 100%;
             border-radius: 8px;
         }
+
         .recipe h2 {
             font-size: 1.2em;
             margin: 0 0 10px 0;
         }
+
         .recipe p {
             margin: 10px 0 0 0;
         }
+
         .recipe a {
             text-decoration: none;
-            color: #ff6347;
+            color: var(--secondary-color);
             font-weight: bold;
         }
+
         .recipe a:hover {
             text-decoration: underline;
         }
+
         .loading {
             text-align: center;
             font-size: 1.5em;
-            color: #ff6347;
+            color: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            .recipe {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .recipe {
+                width: calc(50% - 40px);
+            }
+        }
+
+        @media (max-width: 370px) {
+            .recipe {
+                width: calc(50% - 40px);
+            }
         }
     </style>
 </head>

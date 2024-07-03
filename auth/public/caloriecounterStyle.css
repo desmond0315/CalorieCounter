@@ -7,19 +7,19 @@
   --background-color: #fff;
   --background-color-secondary: #f8f8f9;
   --text-color: #060914;
-  --text-color--muted: #71737f;
+  --text-color-muted: #71737f;
   --line-color: #ededef;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --primary-color: #657bdb;
-    --primary-color--translucent: rgba(85, 106, 195, 0.3);
+    --primary-color-translucent: rgba(85, 106, 195, 0.3);
     --secondary-color: #d93d59;
     --background-color: #060913;
     --background-color-secondary: #0f1424;
     --text-color: #e4e4e7;
-    --text-color--muted: #838690;
+    --text-color-muted: #838690;
     --line-color: #303341;
   }
 }
@@ -39,7 +39,6 @@ body {
   background: url("background.jpg") center/cover no-repeat;
   height: 100vh;
   width: 100%;
-
 }
 
 .wrapper {
@@ -95,7 +94,7 @@ body {
 }
 
 .results {
-  color: var(--text-color--muted);
+  color: var(--text-color-muted);
 }
 
 .results span {
@@ -103,7 +102,6 @@ body {
   color: var(--text-color);
 }
 
-/* The crazy stuff that needs to be here for the custom input styling */
 input[type="range"] {
   -webkit-appearance: none;
   margin: 18px 0;
@@ -154,7 +152,7 @@ input[type="radio"] {
   height: 100%;
   display: block;
   cursor: pointer;
-  color: var(--text-color--muted);
+  color: var(--text-color-muted);
 }
 
 .segmented-control input[type="radio"]:checked + label {
@@ -195,4 +193,136 @@ input[type="range"]::-moz-range-thumb {
   cursor: pointer;
   -webkit-appearance: none;
   margin-top: -8px;
+}
+
+/* Additional styles to incorporate the variables and ensure responsiveness */
+
+#video-background {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}
+
+.middle-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 600px;
+    height: auto;
+    margin-bottom: 200px;
+    padding: 20px;
+    background-color: rgba(231, 203, 181, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.search-form {
+    margin-top: 20px;
+}
+
+.search-form input[type="text"] {
+    width: calc(100% - 120px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    height: 40px;
+}
+
+.search-form button {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100px;
+    height: 40px;
+}
+
+.search-results {
+    display: none;
+    margin-top: 20px;
+}
+
+.footer {
+    background-color: #1a2939;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.footer .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer .footer-links li {
+    display: inline;
+}
+
+.footer .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer .footer-links a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .middle-box {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .search-form input[type="text"] {
+        width: calc(100% - 100px);
+    }
+
+    .search-form button {
+        width: 80px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .middle-box {
+        width: 95%;
+        padding: 5px;
+    }
+
+    .search-form input[type="text"] {
+        width: calc(100% - 70px);
+    }
+
+    .search-form button {
+        width: 60px;
+        height: 34px;
+    }
 }

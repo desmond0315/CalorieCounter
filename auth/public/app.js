@@ -158,52 +158,50 @@ class CalorieTracker {
   }
 
   _displayNewMeal(meal) {
-    const mealsEl = document.getElementById('meal-items');
-    const mealEl = document.createElement('div');
-    mealEl.classList.add('card', 'my-2');
-    mealEl.setAttribute('data-id', meal.id);
-    mealEl.innerHTML = `
+  const mealsEl = document.getElementById('meal-items');
+  const mealEl = document.createElement('div');
+  mealEl.classList.add('card', 'my-2');
+  mealEl.setAttribute('data-id', meal.id);
+  mealEl.innerHTML = `
     <div class="card-body">
-    <div class="d-flex align-items-center justify-content-between">
-      <h4 class="mx-1">${meal.name}</h4>
-      <div
-        class="fs-1 bg-primary text-white text-center rounded-2 px-2 px-sm-5"
-      >
-        ${meal.calories}
+      <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mx-1">${meal.name}</h4>
+        <div class="fs-1 bg-primary text-white text-center rounded-2 px-2 px-sm-5">
+          ${meal.calories}
+        </div>
+        <small>${meal.dateTime}</small>
+        <button class="delete btn btn-danger btn-sm mx-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <button class="delete btn btn-danger btn-sm mx-2">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
     </div>
-  </div>
-    `;
+  `;
 
-    mealsEl.appendChild(mealEl);
-  }
+  mealsEl.appendChild(mealEl);
+}
 
   _displayNewWorkout(workout) {
-    const workoutsEl = document.getElementById('workout-items');
-    const workoutEl = document.createElement('div');
-    workoutEl.classList.add('card', 'my-2');
-    workoutEl.setAttribute('data-id', workout.id);
-    workoutEl.innerHTML = `
+  const workoutsEl = document.getElementById('workout-items');
+  const workoutEl = document.createElement('div');
+  workoutEl.classList.add('card', 'my-2');
+  workoutEl.setAttribute('data-id', workout.id);
+  workoutEl.innerHTML = `
     <div class="card-body">
-    <div class="d-flex align-items-center justify-content-between">
-      <h4 class="mx-1">${workout.name}</h4>
-      <div
-        class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5"
-      >
-        ${workout.calories}
+      <div class="d-flex align-items-center justify-content-between">
+        <h4 class="mx-1">${workout.name}</h4>
+        <div class="fs-1 bg-secondary text-white text-center rounded-2 px-2 px-sm-5">
+          ${workout.calories}
+        </div>
+        <small>${workout.dateTime}</small>
+        <button class="delete btn btn-danger btn-sm mx-2">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <button class="delete btn btn-danger btn-sm mx-2">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
     </div>
-  </div>
-    `;
+  `;
 
-    workoutsEl.appendChild(workoutEl);
-  }
+  workoutsEl.appendChild(workoutEl);
+}
 
   _render() {
     this._displayCaloriesTotal();
@@ -226,18 +224,20 @@ class CalorieTracker {
 }
 
 class Meal {
-  constructor(name, calories) {
+  constructor(name, calories, dateTime) {
     this.id = Math.random().toString(16).slice(2);
     this.name = name;
     this.calories = calories;
+    this.dateTime = dateTime;
   }
 }
 
 class Workout {
-  constructor(name, calories) {
+  constructor(name, calories, dateTime) {
     this.id = Math.random().toString(16).slice(2);
     this.name = name;
     this.calories = calories;
+    this.dateTime = dateTime;
   }
 }
 
@@ -376,33 +376,35 @@ class App {
   }
 
   _newItem(type, e) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const name = document.getElementById(`${type}-name`);
-    const calories = document.getElementById(`${type}-calories`);
+  const name = document.getElementById(`${type}-name`);
+  const calories = document.getElementById(`${type}-calories`);
+  const dateTime = document.getElementById(`${type}-date-time`);
 
-    // Validate inputs
-    if (name.value === '' || calories.value === '') {
-      alert('Please fill in all fields');
-      return;
-    }
-
-    if (type === 'meal') {
-      const meal = new Meal(name.value, +calories.value);
-      this._tracker.addMeal(meal);
-    } else {
-      const workout = new Workout(name.value, +calories.value);
-      this._tracker.addWorkout(workout);
-    }
-
-    name.value = '';
-    calories.value = '';
-
-    const collapseItem = document.getElementById(`collapse-${type}`);
-    const bsCollapse = new bootstrap.Collapse(collapseItem, {
-      toggle: true,
-    });
+  if (name.value === '' || calories.value === '' || dateTime.value === '') {
+    alert('Please fill in all fields');
+    return;
   }
+
+  if (type === 'meal') {
+    const meal = new Meal(name.value, +calories.value, dateTime.value);
+    this._tracker.addMeal(meal);
+  } else {
+    const workout = new Workout(name.value, +calories.value, dateTime.value);
+    this._tracker.addWorkout(workout);
+  }
+
+  name.value = '';
+  calories.value = '';
+  dateTime.value = '';
+
+  const collapseItem = document.getElementById(`collapse-${type}`);
+  const bsCollapse = new bootstrap.Collapse(collapseItem, {
+    toggle: true,
+  });
+}
+
 
   _removeItem(type, e) {
     if (
