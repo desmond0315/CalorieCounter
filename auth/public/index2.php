@@ -50,7 +50,6 @@ $conn->close();
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <link rel="stylesheet" href="trackstyle.css" />
-    <link rel="stylesheet" href="style.css" />
     <!-- Add this before your app.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 

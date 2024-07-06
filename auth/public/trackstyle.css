@@ -66,16 +66,16 @@ header button {
 }
 
 .fs-1 {
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .fs-4 {
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 /* Progress Bar */
 .progress {
-  height: 30px;
+  height: 20px;
   margin: 20px 50px;
   background-color: #e9ecef;
   border-radius: 10px;
@@ -126,7 +126,7 @@ header button {
 }
 
 .items .card {
-  margin-top: 20px;
+  margin-top: 10px;
   border-radius: 10px;
 }
 
@@ -145,6 +145,7 @@ form button {
 
 /* Modal */
 .modal-content {
+  width: 100%; /* Ensure modals are full width */
   border-radius: 10px;
 }
 
@@ -233,14 +234,15 @@ form button {
 .stats .row {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .stats .col-md-6 {
   flex: 1;
 }
 
-.stats .col-md-6 .card {
-  height: 100%;
+.stats .col-md-6 {
+    width: 100%;
 }
 
 .stats .col-md-6 .card-body {
@@ -283,6 +285,8 @@ form button {
 
 .card-body {
   background-color: #fff; /* Set the desired background color */
+  text-align: center;
+
 }
 
 #meal-name {
@@ -302,11 +306,12 @@ form button {
 }
 
 #filter-meals {
-  margin-left:300px;
+    margin-left: 0; /* Center the input horizontally */
+    
 }
 
 #filter-workouts {
-  margin-left: 300px; /* This will center the input horizontally */
+    margin-left: 0; /* Center the input horizontally */
 }
 
 #meal-date-time {

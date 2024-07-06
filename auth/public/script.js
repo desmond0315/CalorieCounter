@@ -28,4 +28,4 @@ signupLoginLink.forEach(link => {
         e.preventDefault();
         formPopup.classList[link.id === 'signup-link' ? 'add' : 'remove']("show-signup");
     });
-});zz
+});

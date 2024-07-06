@@ -16,7 +16,7 @@ $response = array('success' => false, 'message' => '');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
- 
+
     // Prepare a statement to select the hashed password, user ID, and username for the provided email
     $stmt = $conn->prepare("SELECT User_ID, User_Password, User_Name FROM users WHERE User_Email = ?");
     $stmt->bind_param("s", $email);
